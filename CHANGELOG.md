@@ -3,6 +3,16 @@
 Notable changes to AI Blueprint are documented here. Release dates reflect the
 published `create-ai-blueprint` package.
 
+## [1.11.0] - 2026-10-05
+
+### Added
+
+- Added Google Antigravity as an official installer and updater adapter. It
+  reuses `AGENTS.md` and `.agents/skills/`, supports interactive selection and
+  the `--antigravity` flag, and does not add a separate skill tree. Requested by
+  [@shadman2503](https://github.com/shadman2503) in
+  [#27](https://github.com/aiblueprinthq/ai-blueprint/issues/27).
+
 ## [1.10.0] - 2026-09-24
 
 ### Added
