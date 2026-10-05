@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 
-type ReviewAdapter = "claude" | "codex" | "copilot" | "opencode";
+type ReviewAdapter = "claude" | "codex" | "copilot" | "opencode" | "antigravity";
 type ReviewCheckResult = "failed" | "not-required" | "passed" | "unavailable";
 type ReviewExecution = "automatic" | "manual";
 type ReviewState = "changes-requested" | "malformed" | "none" | "passed" | "pending";
@@ -451,7 +451,8 @@ function normalizeAdapter(value: string | undefined): ReviewAdapter | null {
   return normalized === "claude" ||
     normalized === "codex" ||
     normalized === "copilot" ||
-    normalized === "opencode"
+    normalized === "opencode" ||
+    normalized === "antigravity"
     ? normalized
     : null;
 }

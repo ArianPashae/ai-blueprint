@@ -22,7 +22,7 @@ _No independent review requested. Run `/audit independent current` to prepare on
 Use full commit SHAs, the exact permitted base ref used to calculate the merge base,
 a lowercase SHA-256 hash of the exact
 `blueprint/context/current-feature.md` bytes, an ISO-8601 timestamp, and one of
-`codex`, `claude`, `copilot`, or `opencode` for each adapter field.
+`codex`, `claude`, `copilot`, `opencode`, or `antigravity` for each adapter field.
 Model fields use the full identifier exposed by runtime or session metadata,
 not a generic family label. When unavailable, record
 `unknown (runtime did not expose exact model)` instead of guessing. When the

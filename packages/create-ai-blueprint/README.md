@@ -67,8 +67,9 @@ for the rule for all AI tools and optional settings that reduce unwanted AI sign
 ## Core workflow
 
 Run installation and update commands in your terminal. Run workflow skills in
-your AI coding chat: `/feature` in Claude Code, `$feature` in Codex, or ask your
-agent to run the named skill. `blueprint feature` does not run the Feature skill.
+your AI coding chat. Use `/feature` in Claude Code or Google Antigravity, and use
+`$feature` in Codex. Other tools can run the named skill through plain language.
+`blueprint feature` does not run the Feature skill.
 Use `npx create-ai-blueprint@latest status --help` for focused terminal help.
 
 Learn the feature loop:
@@ -112,6 +113,7 @@ from the same state.
 | Codex | `.agents/skills/` | `$feature`, `$implement`, or plain language |
 | Claude Code | `.claude/skills/` | `/feature`, `/implement`, and other slash commands |
 | GitHub Copilot | `AGENTS.md` and `.agents/skills/` | Ask Copilot to run the matching skill |
+| Google Antigravity | `AGENTS.md` and `.agents/skills/` | `/feature`, `/implement`, and other slash commands |
 | OpenCode | `AGENTS.md` and compatible `.agents/skills/` or `.claude/skills/` | Ask OpenCode to run the matching skill |
 | Other tools | `AGENTS.md` plus readable skill files | Ask the agent to follow the matching `SKILL.md` |
 
@@ -126,6 +128,7 @@ npx create-ai-blueprint@latest -- --codex
 npx create-ai-blueprint@latest -- --claude
 npx create-ai-blueprint@latest -- --copilot
 npx create-ai-blueprint@latest -- --opencode
+npx create-ai-blueprint@latest -- --antigravity
 npx create-ai-blueprint@latest -- --codex --opencode
 npx create-ai-blueprint@latest -- --all
 npx create-ai-blueprint@latest -- --both
@@ -138,12 +141,13 @@ The same flags work with `npm create ai-blueprint@latest -- ...`.
 
 The interactive installer shows a checkbox list with Claude Code and Codex
 selected by default. GitHub Copilot and OpenCode remain available but unchecked.
-Adapter flags are composable, so scripts can select any combination.
+Google Antigravity is also available and unchecked. Adapter flags are
+composable, so scripts can select any combination.
 `--both` remains as a deprecated alias for `--all` and prints a warning. GitHub
 Copilot uses `AGENTS.md` and the shared `.agents/skills/` files; the installer
-does not manage `.github/copilot-instructions.md`. OpenCode reuses the compatible
-`.agents/skills/` or `.claude/skills/` tree instead of creating duplicate
-`.opencode/skills/` files.
+does not manage `.github/copilot-instructions.md`. Google Antigravity uses those
+same `AGENTS.md` and `.agents/skills/` files. OpenCode reuses a compatible tree
+instead of creating duplicate `.opencode/skills/` files.
 
 Use `--force` to overwrite existing Blueprint files. Without `--force`, the
 installer asks before overwriting in an interactive terminal and exits in

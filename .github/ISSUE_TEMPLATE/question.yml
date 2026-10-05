@@ -30,6 +30,7 @@ body:
         - Claude Code
         - GitHub Copilot
         - OpenCode
+        - Google Antigravity
         - Multiple adapters
         - Other or manual SKILL.md usage
     validations:

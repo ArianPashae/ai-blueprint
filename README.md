@@ -30,9 +30,10 @@ building, verifying, and documenting one feature at a time. Plans, specs,
 findings, review evidence, and completed history stay as readable files in your
 project instead of disappearing with the chat that created them.
 
-It works with any application stack and supports Codex, Claude Code, GitHub
-Copilot, OpenCode, and other file-aware coding agents. It does not replace your
-application framework or add application code.
+It works with any application stack. Supported adapters include Codex, Claude
+Code, and GitHub Copilot. Google Antigravity and OpenCode are supported too.
+Other file-aware coding agents can follow the readable workflow files. AI
+Blueprint does not replace your application framework or add application code.
 
 Start with the scaffold-first [Quick Start](#quick-start) below.
 
@@ -126,6 +127,7 @@ Run the `npx` commands above in your terminal. Run workflow skills such as
 | Codex | `$onboard`, `$overview`, `$feature` |
 | Claude Code | `/onboard`, `/overview`, `/feature` |
 | GitHub Copilot | Ask Copilot to run the matching skill |
+| Google Antigravity | `/onboard`, `/overview`, `/feature` |
 | OpenCode | Ask OpenCode to run the matching skill |
 
 The interactive installer lets you select one or more adapters. It adds the
@@ -399,12 +401,13 @@ using them.
 | Codex | `.agents/skills/` | `$feature`, `$implement`, or plain language |
 | Claude Code | `.claude/skills/` | `/feature`, `/implement`, and other slash commands |
 | GitHub Copilot | `AGENTS.md` and `.agents/skills/` | Ask Copilot to run the matching skill |
+| Google Antigravity | `AGENTS.md` and `.agents/skills/` | `/feature`, `/implement`, and other slash commands |
 | OpenCode | `AGENTS.md` and compatible shared skills | Ask OpenCode to run the matching skill |
 | Other tools | `AGENTS.md` plus readable skill files | Ask the agent to follow the matching `SKILL.md` |
 
-Codex, GitHub Copilot, and OpenCode can share `.agents/skills/`. Claude Code
-uses `.claude/skills/`, which OpenCode can also reuse. The installer avoids
-duplicating the same skills under `.opencode/skills/`.
+Codex and GitHub Copilot share `.agents/skills/`, and Google Antigravity uses
+that tree too. Claude Code uses `.claude/skills/`. OpenCode can reuse either
+compatible tree, so the installer does not create duplicate skill copies.
 
 Read [Tool Adapters](https://ai-blueprint.dev/docs/tool-adapters/) for selection,
 invocation, and project-layout details.

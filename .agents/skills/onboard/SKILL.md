@@ -299,26 +299,27 @@ Then report which selected tools and adapter folders are needed:
 
 - When a valid `blueprint/.state/manifest.json` exists, its `adapters` list is
   the authoritative installer selection. The presence of `.agents/` means its
-  files are compatible with Codex, GitHub Copilot, and OpenCode; it does not mean
-  all three tools were selected.
+  files are compatible with Codex and GitHub Copilot. Google Antigravity and
+  OpenCode can use them too; it does not mean all four tools were selected.
 - Do not ask the user to select adapters again when that valid manifest exists.
   Keep and report the exact selection. If a required adapter tree is missing,
   report the mismatch and point to `/doctor` instead of guessing or deleting
   another tree.
 - Without a valid manifest, explain that folder detection cannot distinguish
-  Codex, GitHub Copilot, and OpenCode, then ask which tools the user actually
-  uses instead of assuming all of them are selected.
+  Codex or GitHub Copilot from Google Antigravity or OpenCode. Ask which tools
+  the user actually uses instead of assuming all of them are selected.
 - Codex only: keep `AGENTS.md`, `.agents/`, and `blueprint/`; `CLAUDE.md` and
   `.claude/` can be deleted.
 - Claude Code only: keep `AGENTS.md`, `CLAUDE.md`, `.claude/`, and `blueprint/`;
   `.agents/` can be deleted.
 - GitHub Copilot only: keep `AGENTS.md`, `.agents/`, and `blueprint/`.
+- Google Antigravity only: keep `AGENTS.md`, `.agents/`, and `blueprint/`.
 - OpenCode only: keep `AGENTS.md`, `.agents/`, and `blueprint/`.
 - OpenCode with Claude Code: OpenCode can reuse `.claude/`; no separate
   `.opencode/skills/` copy is needed.
 - Mixed tools: keep only the compatible adapter trees required by the selected
-  tools. Never duplicate Blueprint skills under `.opencode/skills/` because
-  OpenCode already discovers `.agents/skills/` and `.claude/skills/`.
+  tools. Never create `.opencode/skills/` or an Antigravity-specific skill tree.
+  Both tools use the supported shared trees.
 
 Do not delete adapters unless the user explicitly asks.
 

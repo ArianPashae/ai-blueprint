@@ -1,9 +1,9 @@
 # AGENTS.md
 
 Instructions for AI coding agents working in this project. This is the cross-tool
-entry point: Codex, OpenCode, Cursor, GitHub Copilot, Gemini CLI, Aider, Zed,
-Windsurf, and others read `AGENTS.md`. Claude Code reads `CLAUDE.md`, which imports
-this file, so there is a single source of truth.
+entry point. Codex, Google Antigravity, and OpenCode read `AGENTS.md`. Other
+compatible tools do too. Claude Code reads `CLAUDE.md`, which imports this file,
+so there is a single source of truth.
 
 Claude Code, Codex, and every other AI tool must not add AI attribution to
 commits or pull requests, including AI `Co-Authored-By` trailers or generated-by
@@ -116,19 +116,19 @@ exposed through tool-specific adapters:
 - Codex: `.agents/skills/<skill>/SKILL.md`
 - Claude Code: `.claude/skills/<skill>/SKILL.md`
 - GitHub Copilot: `AGENTS.md` plus `.agents/skills/<skill>/SKILL.md`
+- Google Antigravity: `AGENTS.md` plus `.agents/skills/<skill>/SKILL.md`
 - OpenCode: `AGENTS.md` plus the compatible `.agents/skills/` or
   `.claude/skills/` tree already installed for the selected tools
 
-Unused adapters can be removed. Codex, GitHub Copilot, and OpenCode can share
-`.agents/`. OpenCode can also reuse `.claude/` when Claude Code is selected.
-Codex-only, Copilot-only, or OpenCode-only projects can delete `CLAUDE.md` and
-`.claude/`. Claude Code-only projects can delete `.agents/`, but should keep
-`AGENTS.md` because `CLAUDE.md` imports it. Do not duplicate the same Blueprint
-skills under `.opencode/skills/`; OpenCode already discovers the compatible
-trees.
+Unused adapters can be removed. Codex and GitHub Copilot share `.agents/`, and
+Google Antigravity uses that tree too. OpenCode can reuse `.agents/` or
+`.claude/`. Projects without Claude Code can delete `CLAUDE.md` and `.claude/`.
+Claude Code-only projects can delete `.agents/`, but should keep `AGENTS.md`
+because `CLAUDE.md` imports it. Do not create `.opencode/skills/` or an
+Antigravity-specific skill tree. Both tools use the supported shared trees.
 
 When changing shared workflow behavior, update the matching skill in both
-adapter folders so Codex, Claude Code, GitHub Copilot, and OpenCode stay aligned.
+adapter folders so every supported tool stays aligned.
 
 Learn the feature loop: `/feature` -> `/implement` -> `/check` -> `/audit current` ->
 `/complete`. Approve the Feature spec before Implement. Check proves behavior;
@@ -175,9 +175,10 @@ Core skills:
 
 In Codex, invoke these as skills (`$onboard`, `$discovery`, `$overview`, `$feature`,
 `$implement`, and so on) or ask naturally, such as "run the overview." In Claude
-Code, use the slash commands (`/onboard`, `/discovery`, `/overview`, `/feature`,
-and so on). These are AI chat commands, not terminal commands. In OpenCode or
-other tools without a dedicated invocation syntax, ask the agent to run the matching skill or follow its `SKILL.md` manually. The
+Code and Google Antigravity, use slash commands such as `/onboard` or `/feature`.
+These are AI chat commands, not terminal commands. In OpenCode or other tools
+without a dedicated invocation syntax, ask the agent to run the matching skill
+or follow its `SKILL.md` manually. The
 conventions in `blueprint/context/` apply however a step is invoked. `/discovery`
 is never required: users may write detailed plans directly or develop them
 through any conversation before running `/overview`.

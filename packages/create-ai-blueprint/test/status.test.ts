@@ -176,6 +176,20 @@ test("readProjectStatus reports OpenCode from the manifest", async (t) => {
   assert.match(formatHumanStatus(status), /Adapters\s+opencode/);
 });
 
+test("readProjectStatus reports Google Antigravity from the manifest", async (t) => {
+  const projectRoot = await createProject(t, {
+    currentWork: resetCurrentWork(),
+    findings: emptyFindings(),
+    branch: "feature/antigravity-status",
+    adapters: ["antigravity"]
+  });
+
+  const status = await readProjectStatus(projectRoot);
+
+  assert.deepEqual(status.blueprint.adapters, ["antigravity"]);
+  assert.match(formatHumanStatus(status), /Adapters\s+antigravity/);
+});
+
 test("readProjectStatus exposes valid project config", async (t) => {
   const projectRoot = await createProject(t, {
     currentWork: resetCurrentWork(),
@@ -1067,7 +1081,7 @@ test("shouldUseColor requires a TTY and respects NO_COLOR", () => {
 });
 
 interface ProjectOptions {
-  adapters?: readonly ("claude" | "codex" | "copilot" | "opencode")[];
+  adapters?: readonly ("claude" | "codex" | "copilot" | "opencode" | "antigravity")[];
   agents?: string;
   currentWork: string;
   findings: string;

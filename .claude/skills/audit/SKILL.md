@@ -159,7 +159,7 @@ request and receipt keep both execution fields absent.
    record the exact runtime-default sentinel from the reference contract.
 5. Execute the configured path:
    - For `manual`, set dashboard activity to `ready` and give the exact handoff
-     command for the selected adapter. Claude Code uses
+     command for the selected adapter. Claude Code and Google Antigravity use
      `/audit independent current`; Codex uses `$audit independent current`;
      Copilot and OpenCode receive the equivalent plain-language instruction.
      Tell the user to open a fresh session in the original checkout with only the

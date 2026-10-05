@@ -12,7 +12,8 @@ const ADAPTER_ORDER: readonly ProjectAdapter[] = [
   "codex",
   "claude",
   "copilot",
-  "opencode"
+  "opencode",
+  "antigravity"
 ];
 
 interface ProjectWarning {

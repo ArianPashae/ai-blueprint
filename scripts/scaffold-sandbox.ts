@@ -8,7 +8,7 @@ const repoRoot = path.resolve(path.dirname(scriptPath), "..");
 const packageRoot = path.join(repoRoot, "packages", "create-ai-blueprint");
 const sandboxRoot = path.join(repoRoot, ".sandbox");
 
-const adapters = ["all", "codex", "claude", "copilot", "opencode"] as const;
+const adapters = ["all", "codex", "claude", "copilot", "opencode", "antigravity"] as const;
 type Adapter = (typeof adapters)[number];
 
 export interface SandboxOptions {
@@ -36,7 +36,7 @@ Usage:
 Options:
   --name <name>        Folder name under .sandbox
   --adapter <name>     Skip the installer prompt and use all, codex, claude,
-                       copilot, or opencode
+                       copilot, opencode, or antigravity
   --clean              Remove the sandbox after a successful run
   --demo-plan          Add example plans ready for overview and feature work
   --no-server          Skip the final development server

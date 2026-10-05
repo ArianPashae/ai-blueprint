@@ -355,7 +355,7 @@ async function validateVerificationContract(): Promise<void> {
         "handle it here instead of sending the user away",
         "Create the initial scaffold commit and continue Onboard? (Recommended)",
         "authoritative installer selection",
-        "does not mean all three tools were selected",
+        "does not mean all four tools were selected",
         "Do not ask the user to select adapters again",
         "point to `/doctor` instead of guessing"
       ]

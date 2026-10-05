@@ -62,6 +62,20 @@ test("parseIndependentReview reads pending and completed records", () => {
   assert.equal(subagent.actualExecution, "automatic");
 });
 
+test("parseIndependentReview accepts Google Antigravity reviewer metadata", () => {
+  const review = parseIndependentReview(
+    reviewRecord("passed", true)
+      .replace("**Prepared by:** codex", "**Prepared by:** antigravity")
+      .replace("**Requested reviewer:** claude", "**Requested reviewer:** antigravity")
+      .replace("**Reviewer adapter:** claude", "**Reviewer adapter:** antigravity")
+  );
+
+  assert.equal(review.state, "passed");
+  assert.equal(review.preparedBy, "antigravity");
+  assert.equal(review.requestedReviewer, "antigravity");
+  assert.equal(review.reviewerAdapter, "antigravity");
+});
+
 test("parseIndependentReview keeps legacy pending and completed reviews manual-only", () => {
   const pending = parseIndependentReview(reviewRecord("pending"));
   assert.equal(pending.state, "pending");
