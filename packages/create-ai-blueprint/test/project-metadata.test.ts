@@ -96,6 +96,27 @@ test("readProjectMetadata reports OpenCode from the manifest", async (t) => {
   assert.deepEqual(metadata.blueprint.adapters, ["opencode"]);
 });
 
+test("readProjectMetadata reports Google Antigravity from the manifest", async (t) => {
+  const workspace = await createWorkspace(t);
+  const projectRoot = path.join(workspace, "app");
+
+  await fs.cp(fixtureRoot, projectRoot, { recursive: true });
+  await fs.writeFile(
+    path.join(projectRoot, "blueprint", ".state", "manifest.json"),
+    `${JSON.stringify({
+      schemaVersion: 1,
+      version: "1.11.0",
+      adapters: ["antigravity"],
+      managedFiles: {}
+    }, null, 2)}\n`
+  );
+
+  const metadata = await readProjectMetadata(projectRoot);
+
+  assert.equal(metadata.blueprint.version, "1.11.0");
+  assert.deepEqual(metadata.blueprint.adapters, ["antigravity"]);
+});
+
 test("readProjectMetadata rejects paths outside a Blueprint project", async (t) => {
   const workspace = await createWorkspace(t);
 

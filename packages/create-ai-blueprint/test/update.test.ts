@@ -113,7 +113,8 @@ test("parseArgs supports install and update modes", () => {
     "codex",
     "claude",
     "copilot",
-    "opencode"
+    "opencode",
+    "antigravity"
   ]);
   assert.deepEqual(parseArgs(["dashboard", "--no-open", "--target", "./app"]), {
     adapters: null,
@@ -160,6 +161,7 @@ test("parseArgs supports install and update modes", () => {
     /--json is available only with the status command/
   );
   assert.deepEqual(parseArgs(["--copilot"]).adapters, ["copilot"]);
+  assert.deepEqual(parseArgs(["--antigravity"]).adapters, ["antigravity"]);
   assert.deepEqual(parseArgs(["--codex", "--opencode"]).adapters, [
     "codex",
     "opencode"
@@ -168,14 +170,15 @@ test("parseArgs supports install and update modes", () => {
     "codex",
     "claude",
     "copilot",
-    "opencode"
+    "opencode",
+    "antigravity"
   ]);
   assert.throws(
     () => parseArgs(["--all", "--opencode"]),
     /Do not combine --all or --both/
   );
   assert.deepEqual(parseArgs(["--both"]), {
-    adapters: ["codex", "claude", "copilot", "opencode"],
+    adapters: ["codex", "claude", "copilot", "opencode", "antigravity"],
     command: "install",
     deprecatedBoth: true,
     deprecatedUi: false,
@@ -200,11 +203,15 @@ test("shared adapters reuse compatible skill trees", () => {
     ["AGENTS.md", "blueprint", ".agents"]
   );
   assert.deepEqual(
+    getTemplateEntries(["antigravity"]).map((entry) => entry.target),
+    ["AGENTS.md", "blueprint", ".agents"]
+  );
+  assert.deepEqual(
     getTemplateEntries(["claude", "opencode"]).map((entry) => entry.target),
     ["AGENTS.md", "blueprint", "CLAUDE.md", ".claude"]
   );
   assert.deepEqual(
-    getTemplateEntries(["codex", "claude", "copilot", "opencode"]).map(
+    getTemplateEntries(["codex", "claude", "copilot", "opencode", "antigravity"]).map(
       (entry) => entry.target
     ),
     ["AGENTS.md", "blueprint", ".agents", "CLAUDE.md", ".claude"]
@@ -213,7 +220,8 @@ test("shared adapters reuse compatible skill trees", () => {
     "codex",
     "claude",
     "copilot",
-    "opencode"
+    "opencode",
+    "antigravity"
   ]);
 });
 
@@ -236,7 +244,8 @@ test("interactive installs default to Claude Code and Codex", async () => {
       { name: "Codex", value: "codex", checked: true },
       { name: "Claude Code", value: "claude", checked: true },
       { name: "GitHub Copilot", value: "copilot", checked: false },
-      { name: "OpenCode", value: "opencode", checked: false }
+      { name: "OpenCode", value: "opencode", checked: false },
+      { name: "Google Antigravity", value: "antigravity", checked: false }
     ],
     required: true
   });
@@ -278,7 +287,8 @@ test("update adapter flags add to the installed set and the prompt starts from i
       { name: "Codex", value: "codex", checked: false },
       { name: "Claude Code", value: "claude", checked: true },
       { name: "GitHub Copilot", value: "copilot", checked: false },
-      { name: "OpenCode", value: "opencode", checked: true }
+      { name: "OpenCode", value: "opencode", checked: true },
+      { name: "Google Antigravity", value: "antigravity", checked: false }
     ],
     required: true
   });

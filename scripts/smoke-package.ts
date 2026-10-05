@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
 const packageRoot = path.join(repoRoot, "packages", "create-ai-blueprint");
 
-type Adapter = "codex" | "claude" | "copilot" | "opencode";
+type Adapter = "codex" | "claude" | "copilot" | "opencode" | "antigravity";
 
 interface InstallMode {
   flags: string[];
@@ -26,23 +26,24 @@ interface PackageManifest {
 const modes: Record<string, InstallMode> = {
   default: {
     flags: [],
-    adapters: ["codex", "claude", "copilot", "opencode"]
+    adapters: ["codex", "claude", "copilot", "opencode", "antigravity"]
   },
   codex: { flags: ["--codex"], adapters: ["codex"] },
   claude: { flags: ["--claude"], adapters: ["claude"] },
   copilot: { flags: ["--copilot"], adapters: ["copilot"] },
   opencode: { flags: ["--opencode"], adapters: ["opencode"] },
+  antigravity: { flags: ["--antigravity"], adapters: ["antigravity"] },
   "codex-opencode": {
     flags: ["--codex", "--opencode"],
     adapters: ["codex", "opencode"]
   },
   all: {
     flags: ["--all"],
-    adapters: ["codex", "claude", "copilot", "opencode"]
+    adapters: ["codex", "claude", "copilot", "opencode", "antigravity"]
   },
   both: {
     flags: ["--both"],
-    adapters: ["codex", "claude", "copilot", "opencode"]
+    adapters: ["codex", "claude", "copilot", "opencode", "antigravity"]
   }
 };
 
@@ -74,7 +75,8 @@ function parseManifest(content: string): PackageManifest {
         adapter === "codex" ||
         adapter === "claude" ||
         adapter === "copilot" ||
-        adapter === "opencode"
+        adapter === "opencode" ||
+        adapter === "antigravity"
     ) ||
     typeof manifest.managedFiles !== "object" ||
     manifest.managedFiles === null ||
@@ -285,6 +287,14 @@ async function main(): Promise<void> {
       }
 
       if (
+        mode === "antigravity" &&
+        (!installResult.stdout.includes("Next: run onboard\n/onboard") ||
+          installResult.stdout.includes("Claude Code:"))
+      ) {
+        throw new Error("antigravity install did not print Antigravity-specific guidance");
+      }
+
+      if (
         (mode === "all" || mode === "both" || mode === "default") &&
         (!installResult.stdout.includes("- Codex: $onboard") ||
           !installResult.stdout.includes("- Claude Code: /onboard") ||
@@ -293,7 +303,8 @@ async function main(): Promise<void> {
           ) ||
           !installResult.stdout.includes(
             "- OpenCode: Ask OpenCode to run the onboard skill."
-          ))
+          ) ||
+          !installResult.stdout.includes("- Google Antigravity: /onboard"))
       ) {
         throw new Error(`${mode} install did not print all-adapter guidance`);
       }
@@ -309,6 +320,7 @@ async function main(): Promise<void> {
 
       const helperRoot = adapters.includes("codex") ||
           adapters.includes("copilot") ||
+          adapters.includes("antigravity") ||
           (adapters.includes("opencode") && !adapters.includes("claude"))
         ? ".agents"
         : ".claude";
@@ -519,8 +531,12 @@ async function validateInstall(
   const expectsClaude = adapters.includes("claude");
   const expectsCopilot = adapters.includes("copilot");
   const expectsOpenCode = adapters.includes("opencode");
+  const expectsAntigravity = adapters.includes("antigravity");
   const expectsSharedSkills =
-    expectsCodex || expectsCopilot || (expectsOpenCode && !expectsClaude);
+    expectsCodex ||
+    expectsCopilot ||
+    expectsAntigravity ||
+    (expectsOpenCode && !expectsClaude);
   const expectedPaths = [
     "AGENTS.md",
     "blueprint/project-plan.md",

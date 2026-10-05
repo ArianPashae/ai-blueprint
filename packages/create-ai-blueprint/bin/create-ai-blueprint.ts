@@ -306,7 +306,13 @@ function parseArgs(args: readonly string[], surface: CliSurface = "package"): Cl
       continue;
     }
 
-    if (arg === "--claude" || arg === "--codex" || arg === "--copilot" || arg === "--opencode") {
+    if (
+      arg === "--claude" ||
+      arg === "--codex" ||
+      arg === "--copilot" ||
+      arg === "--opencode" ||
+      arg === "--antigravity"
+    ) {
       adapterFlags.push(arg.slice(2) as Adapter);
       continue;
     }
@@ -409,7 +415,8 @@ async function resolveAdapters(
       { name: "Codex", value: "codex", checked: true },
       { name: "Claude Code", value: "claude", checked: true },
       { name: "GitHub Copilot", value: "copilot", checked: false },
-      { name: "OpenCode", value: "opencode", checked: false }
+      { name: "OpenCode", value: "opencode", checked: false },
+      { name: "Google Antigravity", value: "antigravity", checked: false }
     ],
     required: true
   });
@@ -435,7 +442,12 @@ async function resolveUpdateAdapters(
       { name: "Codex", value: "codex", checked: installed.includes("codex") },
       { name: "Claude Code", value: "claude", checked: installed.includes("claude") },
       { name: "GitHub Copilot", value: "copilot", checked: installed.includes("copilot") },
-      { name: "OpenCode", value: "opencode", checked: installed.includes("opencode") }
+      { name: "OpenCode", value: "opencode", checked: installed.includes("opencode") },
+      {
+        name: "Google Antigravity",
+        value: "antigravity",
+        checked: installed.includes("antigravity")
+      }
     ],
     required: true
   });
@@ -862,6 +874,10 @@ function getNextCommand(adapters: readonly Adapter[], includeLabels = false): st
     opencode: {
       label: "OpenCode",
       command: "Ask OpenCode to run the onboard skill."
+    },
+    antigravity: {
+      label: "Google Antigravity",
+      command: "/onboard"
     }
   };
   const selected = ALL_ADAPTERS
@@ -1175,6 +1191,7 @@ Options:
   --claude         Add Claude Code to the installed adapters
   --copilot        Add GitHub Copilot to the installed adapters
   --opencode       Add OpenCode to the installed adapters
+  --antigravity    Add Google Antigravity to the installed adapters
   --all            Add every supported adapter; do not combine with adapter flags
   --both           Deprecated alias for --all
   --target, -t     Project directory, defaults to the current directory
@@ -1206,6 +1223,7 @@ Usage:
   npx create-ai-blueprint@latest -- --claude
   npx create-ai-blueprint@latest -- --copilot
   npx create-ai-blueprint@latest -- --opencode
+  npx create-ai-blueprint@latest -- --antigravity
   npx create-ai-blueprint@latest -- --codex --opencode
   npx create-ai-blueprint@latest -- --all
   npx create-ai-blueprint@latest -- --both
@@ -1215,6 +1233,7 @@ Options:
   --claude         Add Claude Code on install, or add it to the installed adapters on update
   --copilot        Add GitHub Copilot on install, or add it to the installed adapters on update
   --opencode       Add OpenCode on install, or add it to the installed adapters on update
+  --antigravity    Add Google Antigravity on install, or add it to the installed adapters on update
   --all            Install every supported adapter
   --both           Deprecated alias for --all
   --target, -t     Target directory, defaults to the current directory

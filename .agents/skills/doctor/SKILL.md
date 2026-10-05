@@ -70,10 +70,11 @@ Gather these, then summarize. Do not dump file contents.
      they must not guess which policy to follow.
 2. **Tool adapters**
    - Read `blueprint/.state/manifest.json` when present and report its exact
-     logical adapters: Codex, Claude Code, GitHub Copilot, and OpenCode.
-   - Confirm at least one compatible skill tree exists. Codex and GitHub Copilot
-     use `.agents/skills/`. Claude Code uses `.claude/skills/`. OpenCode can use
-     either tree.
+     logical adapters. Supported values include Codex, Claude Code, and GitHub
+     Copilot. Google Antigravity and OpenCode are supported too.
+   - Confirm at least one compatible skill tree exists. Codex, GitHub Copilot,
+     and Google Antigravity use `.agents/skills/`. Claude Code uses
+     `.claude/skills/`. OpenCode can use either tree.
    - If both skill trees are present, say that is healthy when the selected
      tools require both. Compare their skill folder names and warn about missing
      skills on either side.

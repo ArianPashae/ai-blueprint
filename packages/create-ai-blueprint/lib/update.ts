@@ -5,7 +5,7 @@ import path from "node:path";
 const CONTROL_DIR = "blueprint/.state";
 const MANIFEST_PATH = `${CONTROL_DIR}/manifest.json`;
 const MANIFEST_SCHEMA_VERSION = 1;
-type Adapter = "codex" | "claude" | "copilot" | "opencode";
+type Adapter = "codex" | "claude" | "copilot" | "opencode" | "antigravity";
 type AdapterMode = Adapter | "all";
 
 interface TemplateFile {
@@ -99,7 +99,13 @@ const MANAGED_ROOTS = {
 } as const;
 const RETIRED_MANAGED_PATHS = new Set(["blueprint/README.md"]);
 const CLAUDE_ENTRYPOINT_PATH = "CLAUDE.md";
-const VALID_ADAPTERS: readonly Adapter[] = ["codex", "claude", "copilot", "opencode"];
+const VALID_ADAPTERS: readonly Adapter[] = [
+  "codex",
+  "claude",
+  "copilot",
+  "opencode",
+  "antigravity"
+];
 const STALE_CLAUDE_IMPORTS = [
   "@blueprint/context/project-overview.md",
   "@blueprint/context/current-feature.md",
@@ -109,7 +115,7 @@ const STALE_CLAUDE_IMPORTS = [
 
 function adapterListFromMode(adapter: AdapterMode): Adapter[] {
   if (adapter === "all") {
-    return ["codex", "claude", "copilot", "opencode"];
+    return ["codex", "claude", "copilot", "opencode", "antigravity"];
   }
 
   return [adapter];
@@ -121,6 +127,7 @@ function managedRootsForAdapters(adapters: readonly Adapter[]): string[] {
   const needsAgents =
     adapters.includes("codex") ||
     adapters.includes("copilot") ||
+    adapters.includes("antigravity") ||
     (adapters.includes("opencode") && !hasClaude);
 
   if (needsAgents) {
